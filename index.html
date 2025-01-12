@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programme de Lavage Idéal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Déterminez le Programme de Lavage Idéal</h1>
+    </header>
+    <main>
+        <form id="wash-program-form">
+            <label for="fabric-type">Type de tissu :</label>
+            <select id="fabric-type" name="fabric-type" required>
+                <option value="" disabled selected>Choisissez</option>
+                <option value="Coton">Coton</option>
+                <option value="Synthétique">Synthétique</option>
+                <option value="Laine">Laine</option>
+                <option value="Délicat">Délicat</option>
+                <option value="Sport">Sport</option>
+                <option value="Textiles Foncés">Textiles Foncés</option>
+                <option value="Couette">Couette</option>
+            </select>
+
+            <label for="load-weight">Poids de la charge (kg) :</label>
+            <input type="number" id="load-weight" name="load-weight" min="1" max="9" step="0.1" required>
+
+            <label for="dirt-level">Niveau de saleté :</label>
+            <select id="dirt-level" name="dirt-level" required>
+                <option value="" disabled selected>Choisissez</option>
+                <option value="Léger">Léger</option>
+                <option value="Normal">Normal</option>
+                <option value="Élevé">Élevé</option>
+            </select>
+
+            <button type="button" onclick="determineProgram()">Afficher le programme</button>
+        </form>
+
+        <section id="result">
+            <h2>Programme recommandé :</h2>
+            <p id="program-output">Remplissez les informations pour voir le résultat.</p>
+        </section>
+    </main>
+    <script>
+        function determineProgram() {
+            const fabricType = document.getElementById("fabric-type").value;
+            const loadWeight = document.getElementById("load-weight").value;
+            const dirtLevel = document.getElementById("dirt-level").value;
+            const result = document.getElementById("program-output");
+
+            if (fabricType && loadWeight && dirtLevel) {
+                // Basic logic for determining the program
+                let program = "Coton 40°";
+                if (fabricType === "Coton" && dirtLevel === "Élevé") program = "Coton 60°";
+                else if (fabricType === "Synthétique") program = "Synthétique 40°";
+                else if (fabricType === "Laine") program = "Laine 40°";
+                else if (fabricType === "Délicat") program = "Délicat 30°";
+                else if (fabricType === "Sport") program = "Sport 40°";
+                else if (fabricType === "Textiles Foncés") program = "Textiles Foncés 40°";
+                else if (fabricType === "Couette") program = "Couette 40°";
+
+                result.textContent = `Programme : ${program} (Charge : ${loadWeight} kg)`;
+            } else {
+                result.textContent = "Veuillez remplir tous les champs pour obtenir un programme.";
+            }
+        }
+    </script>
+</body>
+</html>
